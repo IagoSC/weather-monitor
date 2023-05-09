@@ -1,31 +1,33 @@
 {
-  "name": "weather-monitor",
-  "version": "1.0.0",
-  "description": "To monitor the weather for sports (consumer)",
-  "main": "index.ts",
-  "scripts": {
-    "start": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iagosc/weather-monitor.git"
-  },
-  "keywords": [
-    "weather",
-    "kafka",
-    "sports"
-  ],
-  "author": "Iago de Sousa Cerqueira",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/iagosc/weather-monitor/issues"
-  },
-  "homepage": "https://github.com/iagosc/weather-monitor#readme",
-  "dependencies": {
-    "dotenv": "^16.0.3"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.1"
-  }
+    "name": "weather-monitor",
+    "version": "1.0.0",
+    "description": "To monitor the weather for sports (consumer)",
+    "main": "index.ts",
+    "scripts": {
+        "start": "ts-node src/index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/iagosc/weather-monitor.git"
+    },
+    "keywords": [
+        "weather",
+        "kafka",
+        "sports"
+    ],
+    "author": "Iago de Sousa Cerqueira",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/iagosc/weather-monitor/issues"
+    },
+    "homepage": "https://github.com/iagosc/weather-monitor#readme",
+    "dependencies": {
+        "avsc": "^5.7.7",
+        "dotenv": "^16.0.3",
+        "kafkajs": "^2.2.4"
+    },
+    "devDependencies": {
+        "ts-node": "^10.9.1"
+    }
 }

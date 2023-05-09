@@ -1,4 +1,3 @@
-import env from "dotenv"
+import env from "dotenv";
 
 console.log("Starting producer");
-
