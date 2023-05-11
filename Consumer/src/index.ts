@@ -1,18 +1,31 @@
-import { Kafka } from "kafkajs";
+import { Kafka, KafkaMessage } from "kafkajs";
 import { config } from "./config";
 
-console.log("Starting Consumer...");
+console.log("Starting producer");
 
-const kafka = new Kafka({ brokers: [config.brokers] });
-const producer = kafka.producer();
+type ReceivedMessage = {
+    topic: String;
+    partition: Number;
+    message: KafkaMessage;
+};
 
-producer.connect();
+const runConsumer = async () => {
+    const kafka = new Kafka({ brokers: [config.brokers] });
+    const consumer = kafka.consumer({ groupId: "iago" });
 
-const num = Math.floor(Math.random() * 100);
+    await consumer.connect();
 
-producer.send({
-    topic: "Numeros",
-    messages: [{ key: "chave", value: `${num}` }],
-});
+    await consumer.subscribe({ topic: "numeros", fromBeginning: true });
 
-producer.disconnect();
+    await consumer.run({
+        eachMessage: async ({ topic, partition, message }: ReceivedMessage) => {
+            console.log({
+                topic,
+                partition,
+                message: message.value?.toString,
+            });
+        },
+    });
+};
+
+runConsumer();
