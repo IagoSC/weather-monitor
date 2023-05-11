@@ -1,7 +1,7 @@
 import { Kafka, KafkaMessage } from "kafkajs";
 import { config } from "./config";
 
-console.log("Starting producer");
+console.log("Starting Consumer...");
 
 type ReceivedMessage = {
     topic: String;
