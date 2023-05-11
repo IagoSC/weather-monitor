@@ -1,18 +1,18 @@
-import { Kafka } from "kafkajs";
-import { config } from "./config";
+import * as Notifier from "./kafkaProducer";
+import { Location, getMeteo } from "./meteoApi";
 
-console.log("Starting Consumer...");
+console.log("Starting Producer...");
 
-const kafka = new Kafka({ brokers: [config.brokers] });
-const producer = kafka.producer();
+type Topic = {
+    name: string;
+    location: Location;
+};
 
-producer.connect();
+const topics: Topic[] = [
+    { name: "camburi", location: [-20.275155, -40.282214] },
+    { name: "barrote", location: [-20.149803, -40.184616] },
+];
 
-const num = Math.floor(Math.random() * 100);
-
-producer.send({
-    topic: "Numeros",
-    messages: [{ key: "chave", value: `${num}` }],
-});
-
-producer.disconnect();
+const updateWeather = async (topic: Topic) => {
+    const weather = await getMeteo(topic.location);
+};
