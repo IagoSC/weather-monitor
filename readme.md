@@ -23,6 +23,7 @@ em outro terminal:
     Meio-dia: 10h ~ 14h
     Tarde: 14h ~ 18h
     Noite: 18h ~ 22h
+
     
 ## Algumas possibilidades: 
 - Monitoramento exclusivo para Surfe. Variavel monitorada: Maré, Radiação solar, Vento (velocidade e direção)
