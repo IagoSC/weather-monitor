@@ -6,9 +6,17 @@ This project is a weather monitor with focus on sports.
 ## How to run
 
 start kafka and zookeeper
-cd /Consumer && npm start
-cd /Producer && npm start
+em um terminal:
 
+    cd /Consumer 
+    npm i
+    npm start
+
+em outro terminal:
+    
+    cd /Producer 
+    npm i
+    npm start
 
 ## Glossário
     Manhã: 6h ~ 10h
