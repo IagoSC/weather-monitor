@@ -13,6 +13,7 @@ export const notify = (local: string, events: Event[]) => {
         events.map(({ time, ...event }) => {
             producer.send({
                 topic: time,
+                acks: 0,
                 messages: [{ key: local, value: JSON.stringify(event) }],
             });
         })
