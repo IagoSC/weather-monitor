@@ -1,5 +1,4 @@
-import { Kafka, KafkaMessage } from "kafkajs";
-import { config } from "./config";
+import { KafkaMessage } from "kafkajs";
 import { Consumer } from "./Consumer";
 
 console.log("Starting Consumer...");
