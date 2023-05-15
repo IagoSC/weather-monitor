@@ -1,5 +1,6 @@
 import * as Notifier from "./kafkaProducer";
-import { Location, getMeteo } from "./meteoApi";
+import { Location, getMeteo, metrics } from "./meteoApi";
+import { checkStats, generateStats, Event } from "./statistics";
 
 console.log("Starting Producer...");
 
@@ -14,5 +15,12 @@ const topics: Topic[] = [
 ];
 
 const updateWeather = async (topic: Topic) => {
-    const weather = await getMeteo(topic.location);
+    const weatherResponse = await getMeteo(topic.location);
+    console.log(weatherResponse);
+    const stats = generateStats(weatherResponse.hourly);
+    const events = [] as Event[];
+    for (const [metric, values] of stats.entries())
+        events.push(...checkStats(metric, values));
+    Notifier.notify(topic.name, events);
 };
+updateWeather(topics[0]); 
