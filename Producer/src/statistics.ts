@@ -188,3 +188,8 @@ const checkRain = (intensity: DailyTimesAverage[]): Event[] => {
 
     return events;
 };
+
+// Temperatura < 18 | 18 ~ 24 | 24 ~ 28 | 28 ~ 32 | > 32
+// Chuva ~0 | ~ 20 | > 20
+// Vento ~5,4 | 5,4 ~ 13,8 | > 13,8
+// UV ~3 | 3 ~ 6 | 6 ~ 8 | > 8

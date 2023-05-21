@@ -15,12 +15,26 @@ const topics: Topic[] = [
 ];
 
 const updateWeather = async (topic: Topic) => {
+    console.log("Getting news");
     const weatherResponse = await getMeteo(topic.location);
-    console.log(weatherResponse);
+    console.log("Generating Status");
     const stats = generateStats(weatherResponse.hourly);
     const events = [] as Event[];
     for (const [metric, values] of stats.entries())
         events.push(...checkStats(metric, values));
+    console.log("Sending Events");
     Notifier.notify(topic.name, events);
 };
-updateWeather(topics[0]); 
+
+const run = async () => {
+    while (true) {
+        updateWeather(topics[0]);
+        await new Promise((resolve) =>
+            setTimeout(() => {
+                resolve(null);
+            }, 60000)
+        );
+    }
+};
+
+run();
