@@ -3,22 +3,27 @@
 This project is a weather monitor with focus on sports.
 
 
-## How does it work?
-
-A consumer wants to have news on the weather for surfing for example: it asks the producer of the monitor to receive a message when waves are good for surfing (based on wind, local, temperature)
-<!-- This is wrong, need to know better what values to monitor -->
-
 ## How to run
 
 start kafka and zookeeper
-run scripts install.sh, start.sh
+em um terminal:
 
+    cd /Consumer 
+    npm i
+    npm start
+
+em outro terminal:
+    
+    cd /Producer 
+    npm i
+    npm start
 
 ## Glossário
     Manhã: 6h ~ 10h
     Meio-dia: 10h ~ 14h
     Tarde: 14h ~ 18h
     Noite: 18h ~ 22h
+
     
 ## Algumas possibilidades: 
 - Monitoramento exclusivo para Surfe. Variavel monitorada: Maré, Radiação solar, Vento (velocidade e direção)
