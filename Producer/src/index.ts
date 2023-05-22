@@ -28,11 +28,11 @@ const updateWeather = async (topic: Topic) => {
 
 const run = async () => {
     while (true) {
-        updateWeather(topics[0]);
+        topics.map(updateWeather);
         await new Promise((resolve) =>
             setTimeout(() => {
                 resolve(null);
-            }, 60000)
+            }, 20000)
         );
     }
 };

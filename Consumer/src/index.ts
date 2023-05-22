@@ -1,22 +1,22 @@
 import { KafkaMessage } from "kafkajs";
 import { Consumer } from "./Consumer";
+import { Local } from "./consumerTypes";
 
 console.log("Starting Consumer...");
 
-export type Time = "morning" | "noom" | "evening" | "night";
+export type Time = "morning" | "midday" | "evening" | "night";
 
 export type ReceivedMessage = {
     topic: string;
-    partition: Number;
     message: KafkaMessage;
 };
 
-const runConsumer = async (topic: string, id: number) => {
-    const consumer = new Consumer(`tester-${id}`);
+const runConsumer = async (topic: Local) => {
+    const consumer = new Consumer();
     consumer.subscribe(topic);
     consumer.run();
 };
 
-["noom", "night"].map((topic, id) => {
-    runConsumer(topic, id);
+(["camburi", "barrote"] as Local[]).map((topic) => {
+    runConsumer(topic);
 });

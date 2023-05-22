@@ -1,11 +1,11 @@
 import { MetricTypes } from "./meteoApi";
 
-type Time = "morning" | "noom" | "evening" | "night";
+type Time = "morning" | "midday" | "evening" | "night";
 
 type DailyTimesAverage = {
     date: string;
     morning: number;
-    noom: number;
+    midday: number;
     evening: number;
     night: number;
 };
@@ -20,7 +20,7 @@ export type Event = {
     date: string;
     time: Time;
     metric: MetricTypes;
-    intensity: "low" | "high";
+    intensity: "bad" | "good";
 };
 
 const batchArray = <T>(array: T[], size: number): T[][] => {
@@ -52,7 +52,7 @@ export const generateStats = (meteoResponseTimely: any): MetricsAverage => {
             return {
                 date,
                 morning: getAverage(day.slice(6, 10)),
-                noom: getAverage(day.slice(10, 14)),
+                midday: getAverage(day.slice(10, 14)),
                 evening: getAverage(day.slice(14, 18)),
                 night: getAverage(day.slice(18, 22)),
             } as DailyTimesAverage;
@@ -92,13 +92,13 @@ const checkWind = (intensity: DailyTimesAverage[]): Event[] => {
                 events.push({
                     date,
                     metric: "windspeed_10m",
-                    intensity: "high",
+                    intensity: "bad",
                     time: time as Time,
                 });
             else if (lowWind(wind))
                 events.push({
                     metric: "windspeed_10m",
-                    intensity: "low",
+                    intensity: "good",
                     time: time as Time,
                     date,
                 });
@@ -115,17 +115,17 @@ const checkTemperature = (intensity: DailyTimesAverage[]): Event[] => {
     const events = [] as Event[];
     for (const { date, ...dayStats } of intensity) {
         for (const [time, temp] of Object.entries(dayStats)) {
-            if (highTemp(temp))
+            if (highTemp(temp) || lowTemp(temp))
                 events.push({
-                    date,
                     metric: "temperature_2m",
-                    intensity: "high",
+                    intensity: "bad",
                     time: time as Time,
+                    date,
                 });
-            else if (lowTemp(temp))
+            else
                 events.push({
                     metric: "temperature_2m",
-                    intensity: "low",
+                    intensity: "good",
                     time: time as Time,
                     date,
                 });
@@ -146,13 +146,13 @@ const checkRadiation = (intensity: DailyTimesAverage[]): Event[] => {
                 events.push({
                     date,
                     metric: "uv_index",
-                    intensity: "high",
+                    intensity: "bad",
                     time: time as Time,
                 });
             else if (lowRadiation(radiation))
                 events.push({
                     metric: "uv_index",
-                    intensity: "low",
+                    intensity: "good",
                     time: time as Time,
                     date,
                 });
@@ -173,13 +173,13 @@ const checkRain = (intensity: DailyTimesAverage[]): Event[] => {
                 events.push({
                     date,
                     metric: "precipitation_probability",
-                    intensity: "high",
+                    intensity: "bad",
                     time: time as Time,
                 });
             else if (lowRain(rain))
                 events.push({
                     metric: "precipitation_probability",
-                    intensity: "low",
+                    intensity: "good",
                     time: time as Time,
                     date,
                 });

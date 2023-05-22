@@ -10,14 +10,17 @@ producer.connect();
 
 export const notify = (local: string, events: Event[]) => {
     Promise.all(
-        events.map(({ time, ...event }) => {
-            producer.send({
-                topic: time,
+        events.map((event) => {
+            const message = {
+                topic: local,
                 acks: 0,
-                messages: [{ key: local, value: JSON.stringify(event) }],
-            });
+                messages: [
+                    { key: event.intensity, value: JSON.stringify(event) },
+                ],
+            };
+            producer.send(message);
         })
-    ); //.then((res) => console.log(res));
+    );
 };
 
 export const disconect = () => {

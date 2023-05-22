@@ -23,7 +23,6 @@
     },
     "homepage": "https://github.com/iagosc/weather-monitor#readme",
     "dependencies": {
-        "avsc": "^5.7.7",
         "axios": "^1.4.0",
         "dotenv": "^16.0.3",
         "kafkajs": "^2.2.4"
